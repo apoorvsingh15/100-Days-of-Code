@@ -1,0 +1,43 @@
+What are classes?
+
+- Classes are templates for creating objects.
+- They encapsulate data with code to work on that data.
+- Classes can be called as "special functions".
+- A class can be defined in two ways: a class expression or a class declaration.
+- The body of a class is executed in strict mode even without the "use strict" directive.
+
+A class element can be characterized by three aspects:
+
+Kind: Getter, setter, method, or field
+
+Location: Static or instance
+
+Visibility: Public or private
+
+Example of a class declaration:
+
+class Person{
+  // body of the class - here we define methods or constructors
+  constructor(name, age){ // Special method for initialising an object created with a class.
+  this.name = name;
+  this.age = age;
+  }
+}
+
+Example of a class expression:
+
+const Person = class {
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+  }
+}
+
+Expression; the class has its own name
+
+const Rectangle = class Rectangle2 {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+};
