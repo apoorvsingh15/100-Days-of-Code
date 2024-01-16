@@ -1,0 +1,22 @@
+The Map object holds key-value pairs and remembers the original insertion order of the keys.
+Any value (both objects and primitive values) may be used as either a key or a value.
+
+Example of a map:
+
+const map1 = new Map();
+
+- Setting a value in the map:
+
+map1.set("Apoorv", {age: 28, weight: 70})
+
+map1.get("Apoorv"); // {age: 28, weight: 70}
+
+
+Unique Usage from Objects:
+
+A Map does not contain any keys by default. It only contains what is explicitly put into it.
+A Map is safe to use with user-provided keys and values. - prevents object injection attacks.
+A Map's keys can be any value (including functions, objects, or any primitive).
+The keys in Map are ordered in a simple, straightforward way:
+ A Map object iterates entries, keys, and values in the order of entry insertion.
+ The number of items in a Map is easily retrieved from its size property. // inbuilt function
