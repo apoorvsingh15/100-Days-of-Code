@@ -13,8 +13,9 @@
 //       if (sorted[i] === sorted[i + 1]) {
 //         return true;
 //       }
-//       return false
+//
 //     }
+// return false
 //   } else { return false };
 // };
 
