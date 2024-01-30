@@ -28,13 +28,13 @@ Promise.resolve("one")
   .catch((err) => console.error(err));
 
 
-// Promise.all([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])
-//   .then((results) => console.log(results))
-//   .catch((err) => console.error(err));
+Promise.all([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])
+  .then((results) => console.log(results))
+  .catch((err) => console.error(err));
 
-// [1,2,3]
+[1, 2, 3]
 
-// Promise.race([Promise.resolve("first"),
-// Promise.resolve("second")])
-//   .then((result) => console.log(result, 'res'))
-//   .catch((err) => console.error(err, 'err'));
+Promise.race([Promise.resolve("first"),
+Promise.resolve("second")])
+  .then((result) => console.log(result, 'res'))
+  .catch((err) => console.error(err, 'err'));
