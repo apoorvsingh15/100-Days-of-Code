@@ -1,0 +1,156 @@
+Singleton Pattern
+
+Singleton is a design pattern that ensures that a class has only one immutable instance. Said simply, the singleton pattern consists of an object that can't be copied or modified. It's often useful when we want to have some immutable single point of truth for our application.
+
+Let's say for example we want to have all of our app's configuration in a single object. And we want to disallow any duplication or modification of that object.
+
+Two ways of implementing this pattern are using object literals and classes:
+
+const Config = {
+  start: () => console.log('App has started'),
+  update: () => console.log('App has updated'),
+}
+
+// We freeze the object to prevent new properties being added and existing properties being modified or removed
+Object.freeze(Config)
+
+Config.start() // "App has started"
+Config.update() // "App has updated"
+
+Config.name = "Robert" // We try to add a new key
+console.log(Config) // And verify it doesn't work: { start: [Function: start], update: [Function: update] }
+Using an object literal
+class Config {
+    constructor() {}
+    start(){ console.log('App has started') }
+    update(){ console.log('App has updated') }
+}
+
+const instance = new Config()
+Object.freeze(instance)
+
+Prototype Pattern
+
+The Prototype pattern allows you to create an object using another object as a blueprint, inheriting its properties and methods.
+
+If you've been around JavaScript for a while, you're probably familiar with prototypal inheritance and how JavaScript works around it.
+
+The end result is very similar to what we get by using classes, but with a little more flexibility since properties and methods can be shared between objects without depending on the same class.
+
+// We declare our prototype object with two methods
+const enemy = {
+    attack: () => console.log("Pim Pam Pum!"),
+    flyAway: () => console.log("Flyyyy like an eagle!")
+}
+
+// We declare another object that will inherit from our prototype
+const bug1 = {
+    name: "Buggy McFly",
+    phrase: "Your debugger doesn't work with me!"
+}
+
+// With setPrototypeOf we set the prototype of our object
+Object.setPrototypeOf(bug1, enemy)
+
+// With getPrototypeOf we read the prototype and confirm the previous has worked
+console.log(Object.getPrototypeOf(bug1)) // { attack: [Function: attack], flyAway: [Function: flyAway] }
+
+console.log(bug1.phrase) // Your debugger doesn't work with me!
+console.log(bug1.attack()) // Pim Pam Pum!
+console.log(bug1.flyAway()) // Flyyyy like an eagle!
+
+
+Facade Pattern
+
+The Facade pattern provides a simplified interface to a library, a framework, or any other complex set of classes.
+
+Well...we can probably come out with lots of examples for this, right? I mean, React itself or any of the
+gazillion libraries out there used for pretty much anything related to software development. Specially when we think about declarative programming, it's all about providing abstractions that hide away complexity from the eyes of the developer.
+
+A simple example could be JavaScript's map, sort, reduce and filter functions, which all work like good 'ol for loops beneath the hood.
+
+Another example could be any of the libraries used for UI development nowadays, like MUI.
+As we can see in the following example, these libraries offer us components that bring built-in features and functionalities that help us build code faster and easier.
+
+But all this when compiled turns into simple HTML elements, which are the only thing browsers understand.
+These components are only abstractions that are here to make our lives easier.
+
+.
+import * as React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+function createData(
+  name: string,
+  calories: number,
+  fat: number,
+  carbs: number,
+  protein: number,
+) {
+  return { name, calories, fat, carbs, protein };
+}
+
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
+
+export default function BasicTable() {
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Dessert (100g serving)</TableCell>
+            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Fat&nbsp;(g)</TableCell>
+            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.protein}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+
+Observer Pattern
+
+The observer pattern lets you define a subscription mechanism to notify multiple objects about any events
+that happen to the object they’re observing. Basically, it's like having an event listener on a given object,
+and when that object performs the action we're listening for, we do something.
+
+React's useEffect hook might be a good example here. What useEffect does is execute a given function at the moment we declare.
+
+The hook is divided in two main parts, the executable function and an array of dependencies.
+If the array is empty, like in the following example, the function gets executed each time the component is rendered.
+
+  useEffect(() => { console.log('The component has rendered') }, [])
+If we declare any variables within the dependency array, the function will execute only when those variables change.
+
+  useEffect(() => { console.log('var1 has changed') }, [var1])
+Even plain old JavaScript event listeners can be thought of as observers. Also, reactive programming and
+libraries like RxJS, which are used to handle asynchronous information and events along systems, are good examples of this pattern.
